@@ -1,0 +1,13 @@
+Description: 
+    Create a calendar similar to google calendar/ office 365 calendar
+
+Stack:
+    MERN
+
+Feature List:
+    calendar will have functions:
+        create event and adding it to the selected date
+        option to delete event after selecting ont the event in the calendar
+        update/modify the event after selecting on the event
+        in order to create an event, there must be minimum characters inputed onto the form (validation)
+        
