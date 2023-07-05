@@ -1,2 +1,1 @@
-# calendar 
- Solo Project Proposal
+
