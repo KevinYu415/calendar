@@ -1,0 +1,15 @@
+Description: 
+    A calendar similar to google calendar/ office 365 calendar that allows you to manange daily events.
+
+Stack:
+    MERN
+
+Feature List:
+    calendar will have functions:
+        create event and adding it to the selected date
+        option to delete event after selecting the event on the calendar
+        update/modify the event after selecting the event
+        create an event validation, must have a minimum amount of characters on form for event creation 
+
+Github Link:
+    https://github.com/KevinYu415/calendar
