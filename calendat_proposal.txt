@@ -10,4 +10,6 @@ Feature List:
         option to delete event after selecting ont the event in the calendar
         update/modify the event after selecting on the event
         in order to create an event, there must be minimum characters inputed onto the form (validation)
-        
+
+Github Link:
+    https://github.com/KevinYu415/calendar
