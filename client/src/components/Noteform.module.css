@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center;   */
+    text-align: center; 
+    width: 900px;
+    height: 150px;
+    margin: 10px;
+
+}
+
+.inputs{
+    display: flex;
+    justify-content: left;
+
+    width: 900px;
+    border: solid black;
+    margin: 10px;
+    padding: 10px;
+}
+
+.textcolor{
+    color: red;
+}
+/* .size{
+    width: 200px;
+    height: 50px;
+} */

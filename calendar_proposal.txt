@@ -13,3 +13,10 @@ Feature List:
 
 Github Link:
     https://github.com/KevinYu415/calendar
+
+
+
+    cd c:/"Program Files"/MongoDB/Server/<version_number>/bin/
+    
+    mongo.exe
+
