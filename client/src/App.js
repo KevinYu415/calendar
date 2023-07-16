@@ -10,8 +10,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<DisplayAll />} />
-          <Route path="/calender" element={<Calender/>} />
+          <Route path="/" element={<Calender />} />
+          {/* <Route path="/calender" element={<Calender/>} /> */}
           <Route path="/notes/new" element={<NoteWallForm />} />
           <Route path="/edit/notes/:id" element={<EditNoteWall />} />
         </Routes>

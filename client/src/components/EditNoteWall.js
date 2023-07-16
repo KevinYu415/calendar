@@ -100,20 +100,27 @@ const EditNoteWall = (props) => {
             /></p>
 
             <p><label htmlFor="title">Start Date</label>
-             <span className={styles.textcolor}>{errors.body ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
+             {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
             <input
             type="date"
             // id="name"
             value={start}
             onChange={(e) => setStartdate(e.target.value)}
-            />
-            <span className={styles.textcolor}>{errors.body ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
+            /> */}
+
+              <div><DateTimePicker 
+                onChange={setStartdate}
+                // onChange={(e) => setEndtime(e.target.value)} 
+                value={start}
+              />
+              </div>
+            {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
             <input
             type="time"
             // id="name"
             value={starttime}
             onChange={(e) => setStarttime(e.target.value)}
-            />
+            /> */}
             </p>
 
             <p><label htmlFor="title">End Date</label>
@@ -124,13 +131,13 @@ const EditNoteWall = (props) => {
             value={enddate}
             onChange={(e) => setEnddate(e.target.value)}
             /> */}
-            <span className={styles.textcolor}>{errors.body ? <span > {errors.enddate.message} </span> : null}</span> <br></br>
+            {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.enddate.message} </span> : null}</span> <br></br>
             <input
             type="time"
             // id="name"
             value={endtime}
             onChange={(e) => setEndtime(e.target.value)}
-            />
+            /> */}
             </p>
 
             <div><DateTimePicker 
