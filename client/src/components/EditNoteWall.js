@@ -100,6 +100,8 @@ const EditNoteWall = (props) => {
             /></p>
 
             <p><label htmlFor="title">Start Date</label>
+            <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
+
              {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
             <input
             type="date"
@@ -124,6 +126,8 @@ const EditNoteWall = (props) => {
             </p>
 
             <p><label htmlFor="title">End Date</label>
+            <span className={styles.textcolor}>{errors.end ? <span > {errors.end.message} </span> : null}</span> <br></br>
+
              {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.enddate.message} </span> : null}</span> <br></br>
             <input
             type="date"

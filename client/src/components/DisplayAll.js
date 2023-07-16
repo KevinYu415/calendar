@@ -32,7 +32,7 @@ const DisplayAll = () => {
                 <Link to="/notes/new">Create Event</Link>
             </div>
             <div className={styles.box} >
-                <Link to="/calender">Home</Link>
+                <Link to="/">Home</Link>
             </div>
         </div>
         <div className={styles.center}>

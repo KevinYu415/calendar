@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Calender />} />
-          {/* <Route path="/calender" element={<Calender/>} /> */}
+          <Route path="/info" element={<DisplayAll/>} />
           <Route path="/notes/new" element={<NoteWallForm />} />
           <Route path="/edit/notes/:id" element={<EditNoteWall />} />
         </Routes>

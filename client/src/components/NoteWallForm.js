@@ -69,6 +69,7 @@ const NoteWallForm = () => {
 
             
               <p><label htmlFor="title">Start</label>
+              <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
              {/* <span className={styles.textcolor}>{errors.startdate ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
                 <input className={styles.size} 
                 type="date"
@@ -91,6 +92,7 @@ const NoteWallForm = () => {
               </p> 
               
               <p><label htmlFor="title">End</label>
+              <span className={styles.textcolor}>{errors.end ? <span > {errors.end.message} </span> : null}</span> <br></br>
              {/* <span className={styles.textcolor}>{errors.enddate ? <span > {errors.enddate.message} </span> : null}</span> <br></br>
                 <input className={styles.size} 
                 type="date"
