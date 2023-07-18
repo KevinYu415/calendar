@@ -10,26 +10,24 @@ import 'react-clock/dist/Clock.css';
 import moment from "moment";
 
 
-const EditNoteWall = (props) => {
-    const [allNoteWall, setAllNoteWall] = useState([]);
+const EditEventform = (props) => {
+    const [allEvent, setAllEvent] = useState([]);
     const { id } = useParams();
-    const [noteWallName, setNoteWallName] = useState("");
-    const [noteWallBody, setNoteWallBody] = useState("");
-
-    const [start, setStartdate] = useState("");
-    const [end, setEnddate] = useState("");
-
+    const [eventTitle, setEventTitle] = useState("");
+    const [eventSummary, setEventSummary] = useState("");
+    const [start, setStart] = useState("");
+    const [end, setEnd] = useState("");
     const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
   console.log(id);
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/calender/${id}`)
+      .get(`http://localhost:8000/api/calendar/${id}`)
       .then((response) => {
         console.log(response.data);
-        setNoteWallName(response.data.title);
-        setNoteWallBody(response.data.body);
+        setEventTitle(response.data.title);
+        setEventSummary(response.data.body);
       })
       .catch((err) => {
         console.log(err.response);
@@ -40,7 +38,7 @@ const EditNoteWall = (props) => {
   const [display, setDisplay] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/calender/${id}`)
+      .get(`http://localhost:8000/api/calendar/${id}`)
       .then((response) => {
         console.log(response.data);
         setDisplay(response.data);
@@ -55,7 +53,7 @@ const EditNoteWall = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8000/api/calender/${id}`, { title: noteWallName , body: noteWallBody, start, end})
+      .put(`http://localhost:8000/api/calendar/${id}`, { title: eventTitle , body: eventSummary, start, end})
       .then((response) => {
         console.log(response);
         navigate("/");
@@ -67,25 +65,22 @@ const EditNoteWall = (props) => {
   };
 
   // Delete handler for that id
-  const handleDeleteNoteWall = (idFromBelow) => {
+  const handleDeleteEvent = (idFromBelow) => {
     axios
-      .delete(`http://localhost:8000/api/calender/${idFromBelow}`)
+      .delete(`http://localhost:8000/api/calendar/${idFromBelow}`)
       .then((response) => {
         console.log(response);
-        const filteredNoteWall = allNoteWall.filter((noteWall) => {
-          return noteWall._id !== idFromBelow;
+        const filteredCalendarEvent = allEvent.filter((calendarEvent) => {
+          return calendarEvent._id !== idFromBelow;
         });
-        setAllNoteWall(filteredNoteWall);
+        setAllEvent(filteredCalendarEvent);
         navigate("/");
       })
       .catch((err) => {
-        console.log("error deleting author", err.response);
+        console.log("error deleting event", err.response);
       });
   };
-  // console.log(allNoteWall.body)
   return (
-    
-
     <div>
       <div className={styles.center}>
           <table >
@@ -116,22 +111,22 @@ const EditNoteWall = (props) => {
             <input
             type="text"
             id="name"
-            value={noteWallName}
-            onChange={(e) => setNoteWallName(e.target.value)}/>
+            value={eventTitle}
+            onChange={(e) => setEventTitle(e.target.value)}/>
 
             <p><label htmlFor="title">Event Summary</label>
             <span className={styles.textcolor}>{errors.body ? <span > {errors.body.message} </span> : null}</span> <br></br>
             <input
                 type="textarea"
                 id="name"
-                value={noteWallBody}
-                onChange={(e) => setNoteWallBody(e.target.value)}/>
+                value={eventSummary}
+                onChange={(e) => setEventSummary(e.target.value)}/>
             </p>
 
             <p><label htmlFor="title">Start Date and Time</label>
             <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
               <div><DateTimePicker 
-                      onChange={setStartdate}
+                      onChange={setStart}
                       value={start}/>
               </div>
             </p>
@@ -139,7 +134,7 @@ const EditNoteWall = (props) => {
             <p><label htmlFor="title">End Date and Time</label>
             <span className={styles.textcolor}>{errors.end ? <span > {errors.end.message} </span> : null}</span> <br></br>
               <div><DateTimePicker 
-                      onChange={setEnddate}
+                      onChange={setEnd}
                       value={end}/>
               </div>
             </p>
@@ -148,20 +143,15 @@ const EditNoteWall = (props) => {
                 Edit Event
             </button>
 
-            <button onClick={() => handleDeleteNoteWall(id)}
-                                className="btn btn-danger">
+            <button onClick={() => handleDeleteEvent(id)} className="btn btn-danger">
                 Delete Event
             </button>
 
-        </div>
-    </div>
+          </div>
+      </div>
     </form> 
-    </div>
-
-    
-
-    
+  </div> 
   );
 };
 
-export default EditNoteWall;
+export default EditEventform;

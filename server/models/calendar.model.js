@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const CalenderSchema = {
+const CalendarSchema = {
   title: {
     type: String,
     required: [true, "Title must be at least 2 characters"],
@@ -21,4 +21,4 @@ const CalenderSchema = {
   }
 };
 
-module.exports = mongoose.model("Calender", CalenderSchema);
+module.exports = mongoose.model("Calendar", CalendarSchema);

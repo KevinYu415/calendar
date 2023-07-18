@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NoteWallForm from "./components/NoteWallForm";
-import EditNoteWall from "./components/EditNoteWall";
-import Calender from "./components/Calender";
+import EventForm from "./components/EventForm";
+import EditEventform from "./components/EditEventform";
+import CalendarDisplay from "./components/CalendarDisplay";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Calender />} />
-          <Route path="/notes/new" element={<NoteWallForm />} />
-          <Route path="/edit/notes/:id" element={<EditNoteWall />} />
+          <Route path="/" element={<CalendarDisplay />} />
+          <Route path="/new" element={<EventForm />} />
+          <Route path="/edit/:id" element={<EditEventform />} />
         </Routes>
       </BrowserRouter>
     </div>

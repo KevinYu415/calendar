@@ -9,7 +9,7 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 
 
-const NoteWallForm = () => {
+const EventForm = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [start, setStart] = useState("");
@@ -20,7 +20,7 @@ const NoteWallForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/calender", { title, body, start, end})
+      .post("http://localhost:8000/api/calendar", { title, body, start, end})
       .then((response) => {
         console.log(response);
         navigate("/");
@@ -57,7 +57,6 @@ const NoteWallForm = () => {
                 value={body}
               /></p> 
 
-            
               <p><label htmlFor="title">Start Date and Time</label>
               <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
               <div><DateTimePicker 
@@ -80,9 +79,7 @@ const NoteWallForm = () => {
             </div>
           </form>
     </div>
-        
-
   );
 };
 
-export default NoteWallForm;
+export default EventForm;
