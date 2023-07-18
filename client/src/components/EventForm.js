@@ -32,53 +32,62 @@ const EventForm = () => {
   };
   return (
     <div className="container">
-        <div className={styles.container}>
-            <div className="col-4">
-            <Link to="/">Calendar</Link>
-            </div>
+        <div className="row">
+            <h2>Create New Calendar Event!</h2>
+            <Link to="/"><button className="btn btn-success">Calendar</button></Link>
         </div>
-          <h2>Create New Calendar Event!</h2>
-          <form className={styles.inputs} onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="title">Event Title</label>
-              <span className={styles.textcolor}> {errors.title ? <span> {errors.title.message} </span> : null}</span> <br></br>
-              <input
-                type="text"
+      <div className="form-control">
+        <form onSubmit={handleSubmit}> 
+          <div class="mb-3">
+            <label htmlFor="title" class="fs-5">Event Title</label>
+            <span className={styles.textcolor}> {errors.title ? <span> {errors.title.message} </span> : null}</span> <br></br>
+            <input
                 className="form-control"
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
-              
-             <p><label htmlFor="title">Event Summary</label>
-             <span className={styles.textcolor}>{errors.body ? <span > {errors.body.message} </span> : null}</span> <br></br>
-                <input className={styles.size} 
                 type="text"
-                onChange={(e) => setBody(e.target.value)}
-                value={body}
-              /></p> 
-
-              <p><label htmlFor="title">Start Date and Time</label>
+                id="name"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}/>
+          </div>
+            
+            <div class="mb-3">
+              <label htmlFor="body" class="fs-5">Event Summary</label>
+              <span className={styles.textcolor}>{errors.body ? <span > {errors.body.message} </span> : null}</span><br></br>
+              <textarea
+                  className="form-control"
+                  type="text"
+                  id="name"
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)}/>
+            </div>
+            
+            <div class="mb-3">
+              <label htmlFor="start" class="fs-5">Start Date and Time</label>
               <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
               <div><DateTimePicker 
-                onChange={setStart}
-                value={start}/>
+                      className="form-control"
+                      onChange={setStart}
+                      value={start}/>
               </div>
-              </p> 
-              
-              <p><label htmlFor="title">End Date and Time</label>
+            </div>
+            
+            <div class="mb-3">
+              <label htmlFor="end" class="fs-5">End Date and Time</label>
               <span className={styles.textcolor}>{errors.end ? <span > {errors.end.message} </span> : null}</span> <br></br>
-              <div><DateTimePicker 
-                onChange={setEnd}
-                value={end}/>
-              </div>
-              </p>
+                <div><DateTimePicker 
+                        className="form-control"
+                        onChange={setEnd}
+                        value={end}/>
+                </div>
+            </div>
 
               <button className="btn btn-primary" type="submit">
                 Create this Event!
               </button>
-            </div>
-          </form>
-    </div>
+              
+        </form>
+      </div>
+      </div>
+
   );
 };
 

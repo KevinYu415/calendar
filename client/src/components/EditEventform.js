@@ -10,6 +10,7 @@ import 'react-clock/dist/Clock.css';
 import moment from "moment";
 
 
+
 const EditEventform = (props) => {
     const [allEvent, setAllEvent] = useState([]);
     const { id } = useParams();
@@ -18,6 +19,7 @@ const EditEventform = (props) => {
     const [start, setStart] = useState("");
     const [end, setEnd] = useState("");
     const [errors, setErrors] = useState({});
+    const [display, setDisplay] = useState([]);
 
   const navigate = useNavigate();
   console.log(id);
@@ -28,26 +30,12 @@ const EditEventform = (props) => {
         console.log(response.data);
         setEventTitle(response.data.title);
         setEventSummary(response.data.body);
+        setDisplay(response.data);    // Handler store Display event on top before edit
       })
       .catch((err) => {
         console.log(err.response);
       });
   }, []);
-
-  // Handler store Display event on top before edit
-  const [display, setDisplay] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/calendar/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        setDisplay(response.data);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  }, []);
-
 
 //Handler store new edit data into id
   const submitHandler = (e) => {
@@ -81,63 +69,68 @@ const EditEventform = (props) => {
       });
   };
   return (
-    <div>
-      <div className={styles.center}>
+    <div className="container">
+        <div className="row">
           <table >
             <tbody>
-              <h2>Current event</h2>
-                <p>Event Title: {display.title}</p>
-                <p>Summary: {display.body}</p>
-                <p>Start date: {moment(display.start).format('MM-DD-YYYY, h:mm:ss a')}</p>
-                <p>End date: {moment(display.end).format('MM-DD-YYYY, h:mm:ss a')}</p>
+              <h2 className="fs-1">Current Event</h2>
+                <p><span className="fs-5">Event Title:</span> <span className="text-primary">{display.title}</span></p>
+                <p><span className="fs-5">Summary:</span> <span className="text-primary">{display.body}</span></p>
+                <p><span className="fs-5">Start date & Time:</span> <span className="text-primary">{moment(display.start).format('MMMM Do, YYYY, h:mm a')}</span></p>
+                <p><span className="fs-5">End date & Time:</span> <span class="text-primary">{moment(display.end).format('MMMM Do, YYYY, h:mm a')}</span></p>
             </tbody>
           </table>
         </div>
-
      <form onSubmit={submitHandler}>
-        <div className={styles.container}>
-            <div>
+        <div className="container"> 
+            <div className="row">
+                <Link to="/"><button className="btn btn-success">Back to Calendar</button></Link>
                 <h1>Edit Calendar Event</h1>
             </div>
-            <div>
-                <Link to="/">Back to Calendar</Link>
-            </div>
         </div>
-      <div className={styles.inputs}>
+      <div className="form-control">
         <div>
-            <label htmlFor="title">Event Title</label>
+          <div class="mb-3">
+            <label htmlFor="title" class="fs-5">Event Title</label>
             <span className={styles.textcolor}> {errors.title ? <span> {errors.title.message} </span> : null}</span> <br></br>
-            <br></br>
             <input
-            type="text"
-            id="name"
-            value={eventTitle}
-            onChange={(e) => setEventTitle(e.target.value)}/>
-
-            <p><label htmlFor="title">Event Summary</label>
-            <span className={styles.textcolor}>{errors.body ? <span > {errors.body.message} </span> : null}</span> <br></br>
-            <input
-                type="textarea"
+                className="form-control"
+                type="text"
                 id="name"
-                value={eventSummary}
-                onChange={(e) => setEventSummary(e.target.value)}/>
-            </p>
-
-            <p><label htmlFor="title">Start Date and Time</label>
-            <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
+                value={eventTitle}
+                onChange={(e) => setEventTitle(e.target.value)}/>
+          </div>
+            
+            <div class="mb-3">
+              <label htmlFor="body" class="fs-5">Event Summary</label>
+              <span className={styles.textcolor}>{errors.body ? <span > {errors.body.message} </span> : null}</span><br></br>
+              <textarea
+                  className="form-control"
+                  type="text"
+                  id="name"
+                  value={eventSummary}
+                  onChange={(e) => setEventSummary(e.target.value)}/>
+            </div>
+            
+            <div class="mb-3">
+              <label htmlFor="start" class="fs-5">Start Date and Time</label>
+              <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
               <div><DateTimePicker 
+                      className="form-control"
                       onChange={setStart}
                       value={start}/>
               </div>
-            </p>
-
-            <p><label htmlFor="title">End Date and Time</label>
-            <span className={styles.textcolor}>{errors.end ? <span > {errors.end.message} </span> : null}</span> <br></br>
-              <div><DateTimePicker 
-                      onChange={setEnd}
-                      value={end}/>
+            </div>
+            
+            <div class="mb-3">
+              <label htmlFor="end" class="fs-5">End Date and Time</label>
+              <span className={styles.textcolor}>{errors.end ? <span > {errors.end.message} </span> : null}</span> <br></br>
+                <div><DateTimePicker 
+                        className="form-control"
+                        onChange={setEnd}
+                        value={end}/>
+                </div>
               </div>
-            </p>
 
             <button type="submit" className="btn btn-primary">
                 Edit Event
@@ -147,7 +140,7 @@ const EditEventform = (props) => {
                 Delete Event
             </button>
 
-          </div>
+        </div>
       </div>
     </form> 
   </div> 

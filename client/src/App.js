@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import EventForm from "./components/EventForm";
 import EditEventform from "./components/EditEventform";
 import CalendarDisplay from "./components/CalendarDisplay";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
