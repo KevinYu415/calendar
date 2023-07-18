@@ -9,7 +9,6 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import moment from "moment";
 
-moment("2021-07-14T00:00:00.000Z").utc().format('YYYY-MM-DD')
 
 const EditNoteWall = (props) => {
     const [allNoteWall, setAllNoteWall] = useState([]);
@@ -19,8 +18,6 @@ const EditNoteWall = (props) => {
 
     const [start, setStartdate] = useState("");
     const [end, setEnddate] = useState("");
-    const [starttime, setStarttime] = useState("");
-    const [endtime, setEndtime] = useState("");
 
     const [errors, setErrors] = useState({});
 
@@ -31,19 +28,34 @@ const EditNoteWall = (props) => {
       .get(`http://localhost:8000/api/calender/${id}`)
       .then((response) => {
         console.log(response.data);
-        setNoteWallName(response.data.name);
-        setNoteWallBody(response.data.name);
+        setNoteWallName(response.data.title);
+        setNoteWallBody(response.data.body);
       })
       .catch((err) => {
         console.log(err.response);
       });
   }, []);
 
+  // Handler store Display event on top before edit
+  const [display, setDisplay] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/calender/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setDisplay(response.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
+
+
+//Handler store new edit data into id
   const submitHandler = (e) => {
     e.preventDefault();
-
     axios
-      .put(`http://localhost:8000/api/calender/${id}`, { title: noteWallName , body: noteWallBody, start, end, starttime, endtime})
+      .put(`http://localhost:8000/api/calender/${id}`, { title: noteWallName , body: noteWallBody, start, end})
       .then((response) => {
         console.log(response);
         navigate("/");
@@ -54,6 +66,7 @@ const EditNoteWall = (props) => {
       });
   };
 
+  // Delete handler for that id
   const handleDeleteNoteWall = (idFromBelow) => {
     axios
       .delete(`http://localhost:8000/api/calender/${idFromBelow}`)
@@ -69,101 +82,85 @@ const EditNoteWall = (props) => {
         console.log("error deleting author", err.response);
       });
   };
+  // console.log(allNoteWall.body)
   return (
-    <form onSubmit={submitHandler}>
+    
+
+    <div>
+      <div className={styles.center}>
+          <table >
+            <tbody>
+              <h2>Current event</h2>
+                <p>Event Title: {display.title}</p>
+                <p>Summary: {display.body}</p>
+                <p>Start date: {moment(display.start).format('MM-DD-YYYY, h:mm:ss a')}</p>
+                <p>End date: {moment(display.end).format('MM-DD-YYYY, h:mm:ss a')}</p>
+            </tbody>
+          </table>
+        </div>
+
+     <form onSubmit={submitHandler}>
         <div className={styles.container}>
             <div>
-                <h1>Note</h1>
+                <h1>Edit Calendar Event</h1>
             </div>
             <div>
-                <Link to="/">go back home</Link>
+                <Link to="/">Back to Calendar</Link>
             </div>
         </div>
       <div className={styles.inputs}>
         <div>
-            <label htmlFor="title">Note Title</label>
+            <label htmlFor="title">Event Title</label>
             <span className={styles.textcolor}> {errors.title ? <span> {errors.title.message} </span> : null}</span> <br></br>
             <br></br>
             <input
             type="text"
             id="name"
             value={noteWallName}
-            onChange={(e) => setNoteWallName(e.target.value)}
-            />
-            <p><label htmlFor="title">Note Body</label>
-             <span className={styles.textcolor}>{errors.body ? <span > {errors.body.message} </span> : null}</span> <br></br>
-            <input
-            type="textarea"
-            id="name"
-            value={noteWallBody}
-            onChange={(e) => setNoteWallBody(e.target.value)}
-            /></p>
+            onChange={(e) => setNoteWallName(e.target.value)}/>
 
-            <p><label htmlFor="title">Start Date</label>
+            <p><label htmlFor="title">Event Summary</label>
+            <span className={styles.textcolor}>{errors.body ? <span > {errors.body.message} </span> : null}</span> <br></br>
+            <input
+                type="textarea"
+                id="name"
+                value={noteWallBody}
+                onChange={(e) => setNoteWallBody(e.target.value)}/>
+            </p>
+
+            <p><label htmlFor="title">Start Date and Time</label>
             <span className={styles.textcolor}>{errors.start ? <span > {errors.start.message} </span> : null}</span> <br></br>
-
-             {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
-            <input
-            type="date"
-            // id="name"
-            value={start}
-            onChange={(e) => setStartdate(e.target.value)}
-            /> */}
-
               <div><DateTimePicker 
-                onChange={setStartdate}
-                // onChange={(e) => setEndtime(e.target.value)} 
-                value={start}
-              />
+                      onChange={setStartdate}
+                      value={start}/>
               </div>
-            {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.startdate.message} </span> : null}</span> <br></br>
-            <input
-            type="time"
-            // id="name"
-            value={starttime}
-            onChange={(e) => setStarttime(e.target.value)}
-            /> */}
             </p>
 
-            <p><label htmlFor="title">End Date</label>
+            <p><label htmlFor="title">End Date and Time</label>
             <span className={styles.textcolor}>{errors.end ? <span > {errors.end.message} </span> : null}</span> <br></br>
-
-             {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.enddate.message} </span> : null}</span> <br></br>
-            <input
-            type="date"
-            // id="name"
-            value={enddate}
-            onChange={(e) => setEnddate(e.target.value)}
-            /> */}
-            {/* <span className={styles.textcolor}>{errors.body ? <span > {errors.enddate.message} </span> : null}</span> <br></br>
-            <input
-            type="time"
-            // id="name"
-            value={endtime}
-            onChange={(e) => setEndtime(e.target.value)}
-            /> */}
+              <div><DateTimePicker 
+                      onChange={setEnddate}
+                      value={end}/>
+              </div>
             </p>
 
-            <div><DateTimePicker 
-                onChange={setEnddate}
-                // onChange={(e) => setEndtime(e.target.value)} 
-                value={end}
-              />
-              </div>
-
-        
             <button type="submit" className="btn btn-primary">
-                Edit Note
+                Edit Event
             </button>
 
             <button onClick={() => handleDeleteNoteWall(id)}
                                 className="btn btn-danger">
-                Delete Note
+                Delete Event
             </button>
 
         </div>
     </div>
-    </form>
+    </form> 
+    </div>
+
+    
+
+    
   );
 };
 

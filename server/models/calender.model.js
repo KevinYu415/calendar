@@ -19,15 +19,6 @@ const CalenderSchema = {
     type: Date,
     required: [true, "Please Insert The end of your event" ],
   }
-  // ,
-  // starttime:{
-  //   type: String,
-  //   required: [true, "Please Insert The Start Time of your event" ],
-  // },
-  // endtime:{
-  //   type: String,
-  //   required: [true, "Please Insert The end Time of your event" ],
-  // }
 };
 
 module.exports = mongoose.model("Calender", CalenderSchema);
